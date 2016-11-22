@@ -1,4 +1,4 @@
-class MobileAuthController < ApplicationController
+lass MobileAuthController < ApplicationController
   def sign_in
     token = params[:token]
 

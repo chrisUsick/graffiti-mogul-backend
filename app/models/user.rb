@@ -1,9 +1,11 @@
-class User < ActiveRecord::Base
+class User
+  include Mongoid::Document
   # Include default devise modules.
+  extend Devise::Models
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
-  
+
   def self.find_for_verified_token_response(auth)
     user = User.where(:provider => "google_oauth2", :uid => auth[:sub]).first
 

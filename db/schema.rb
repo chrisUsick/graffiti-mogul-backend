@@ -10,11 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161122113719) do
+ActiveRecord::Schema.define(version: 20161123011839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "tags", force: :cascade do |t|
+    t.string    "title"
+    t.binary    "thumbnail"
+    t.geography "location",   limit: {:srid=>4326, :type=>"point", :geographic=>true}
+    t.datetime  "created_at",                                                          null: false
+    t.datetime  "updated_at",                                                          null: false
+    t.integer   "user_id"
+    t.index ["user_id"], name: "index_tags_on_user_id", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
@@ -44,4 +54,5 @@ ActiveRecord::Schema.define(version: 20161122113719) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
   end
 
+  add_foreign_key "tags", "users"
 end

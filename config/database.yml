@@ -5,7 +5,7 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: postgresql
+  adapter: postgis
   # host: 192.168.100
   encoding: unicode
   database: graffiti_mogul
